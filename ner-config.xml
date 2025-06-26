@@ -1,0 +1,30 @@
+<View style="display:flex; gap:16px;">
+  <!-- Main Text Area -->
+  <View style="flex:1;">
+    <Text name="text" value="$text"/>
+  </View>
+
+  <!-- Metadata + Label Panel -->
+  <View style="position:sticky; top:10px; align-self:flex-start; max-width:250px; width:100%; padding:8px; border:1px solid #ccc; border-radius:4px;">
+     <!-- Label Panel -->
+    <Labels name="label" toName="text" showInline="false">
+      <Label value="PER" background="#e6194b"/>
+      <Label value="LOC" background="#3cb44b"/>
+      <Label value="ORG" background="#4363d8"/>
+      <Label value="TITLE" background="#f58231"/>
+      <Label value="TME" background="#911eb4"/>
+      <Label value="NUM" background="#ffe119"/>
+    </Labels>
+
+    <!-- Metadata Section -->
+    <View style="font-size:12px; margin-top:12px;">
+      <Header value="Metadata" size="4"/>
+      <Header value="Document ID: $documentId" size="5"/>
+      <Header value="Sentence ID: $sentenceId" size="5"/>
+      <Header value="Sentence Type: $sentenceType" size="5"/>
+      <Header value="Language Code: $languageCode" size="5"/>
+      <Header value="Title: $title" size="5"/>
+      <Header value="Genre: $genreCode" size="5"/>
+    </View>
+  </View>
+</View>
