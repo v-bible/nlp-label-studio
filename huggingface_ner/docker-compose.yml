@@ -1,31 +1,22 @@
-services:
-  label-studio:
-    image: heartexlabs/label-studio:latest
-    ports:
-      - '8080:8080'
-    environment:
-      - LABEL_STUDIO_USERNAME=example@gmail.com
-      - LABEL_STUDIO_PASSWORD=admin
-    volumes:
-      - ./studio-data:/label-studio/data
-    networks:
-      - nlp-network
+version: "3.8"
 
+services:
   huggingface_ner:
+    container_name: huggingface_ner
     image: heartexlabs/label-studio-ml-backend:huggingfacener-master
     init: true
     build:
-      context: ./huggingface_ner
-    ports:
-      - '9090:9090'
+      context: .
+      args:
+        TEST_ENV: ${TEST_ENV}
     environment:
       # If you are using this model for training, you have to connect it to Label Studio
-      - LABEL_STUDIO_HOST=${LABEL_STUDIO_URL:-http://label-studio:8080}
-      - LABEL_STUDIO_API_KEY=${LABEL_STUDIO_LEGACY_TOKEN}
+      - LABEL_STUDIO_HOST=http://localhost:8080
+      - LABEL_STUDIO_API_KEY=your-api-key
       # Use any model for [AutoModelForSequenceClassification](https://huggingface.co/transformers/v3.0.2/model_doc/auto.html#automodelforsequenceclassification)
-      # - BASELINE_MODEL_NAME=dslim/bert-base-NER
+      - BASELINE_MODEL_NAME=dslim/bert-base-NER
       # change it to this model if you want to run training
-      - BASELINE_MODEL_NAME=distilbert/distilbert-base-uncased
+      # - BASELINE_MODEL_NAME=distilbert/distilbert-base-uncased
       # The model directory for the fine-tuned checkpoints (relative to $MODEL_DIR)
       - FINETUNED_MODEL_NAME=finetuned_model
       # The number of labeled tasks to download from Label Studio before starting training
@@ -48,12 +39,8 @@ services:
       - THREADS=8
       # specify the model directory (likely you don't need to change this)
       - MODEL_DIR=/data/models
+    ports:
+      - "9090:9090"
     volumes:
-      - './ml-backend-data/server:/data'
-      - './ml-backend-data/.cache:/root/.cache'
-    networks:
-      - nlp-network
-
-networks:
-  nlp-network:
-    driver: bridge
+      - "./data/server:/data"
+      - "./data/.cache:/root/.cache"
