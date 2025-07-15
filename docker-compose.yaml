@@ -25,7 +25,8 @@ services:
       # Use any model for [AutoModelForSequenceClassification](https://huggingface.co/transformers/v3.0.2/model_doc/auto.html#automodelforsequenceclassification)
       # - BASELINE_MODEL_NAME=dslim/bert-base-NER
       # change it to this model if you want to run training
-      - BASELINE_MODEL_NAME=distilbert/distilbert-base-uncased
+      # - BASELINE_MODEL_NAME=distilbert/distilbert-base-uncased
+      - BASELINE_MODEL_NAME=NlpHUST/ner-vietnamese-electra-base
       # The model directory for the fine-tuned checkpoints (relative to $MODEL_DIR)
       - FINETUNED_MODEL_NAME=finetuned_model
       # The number of labeled tasks to download from Label Studio before starting training
