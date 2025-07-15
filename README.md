@@ -75,7 +75,7 @@ your `.env` file:
 - **Label Studio configs:**
 
   - `LABEL_STUDIO_URL`: URL of the Label Studio instance. E.g.:
-    `http://localhost:8080`.
+    `http://label-studio:8080`.
   - `LABEL_STUDIO_LEGACY_TOKEN`: Legacy token for Label Studio API. You can
     generate it in the Label Studio settings page.
 
@@ -83,7 +83,7 @@ E.g:
 
 ```
 # .env
-LABEL_STUDIO_URL=http://localhost:8080
+LABEL_STUDIO_URL=http://label-studio:8080
 LABEL_STUDIO_LEGACY_TOKEN=eyJhb***
 ```
 

@@ -20,7 +20,7 @@ services:
       - '9090:9090'
     environment:
       # If you are using this model for training, you have to connect it to Label Studio
-      - LABEL_STUDIO_HOST=${LABEL_STUDIO_URL:-http://localhost:8080}
+      - LABEL_STUDIO_HOST=${LABEL_STUDIO_URL:-http://label-studio:8080}
       - LABEL_STUDIO_API_KEY=${LABEL_STUDIO_LEGACY_TOKEN}
       # Use any model for [AutoModelForSequenceClassification](https://huggingface.co/transformers/v3.0.2/model_doc/auto.html#automodelforsequenceclassification)
       # - BASELINE_MODEL_NAME=dslim/bert-base-NER
