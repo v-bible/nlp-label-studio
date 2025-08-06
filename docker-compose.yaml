@@ -4,8 +4,8 @@ services:
     ports:
       - '8080:8080'
     environment:
-      - LABEL_STUDIO_USERNAME=example@gmail.com
-      - LABEL_STUDIO_PASSWORD=admin
+      - LABEL_STUDIO_USERNAME=${LABEL_STUDIO_USERNAME:-example@gmail.com}
+      - LABEL_STUDIO_PASSWORD=${LABEL_STUDIO_PASSWORD:-admin}
     volumes:
       - ./studio-data:/label-studio/data
     networks:

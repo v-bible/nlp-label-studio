@@ -51,6 +51,7 @@
   - [Prerequisites](#bangbang-prerequisites)
   - [Run Locally](#running-run-locally)
 - [Usage](#eyes-usage)
+  - [Base Label Studio Configuration](#base-label-studio-configuration)
   - [Entity Label Categories](#entity-label-categories)
   - [Login Credentials](#login-credentials)
   - [Custom Labeling Interface](#custom-labeling-interface)
@@ -76,6 +77,13 @@ your `.env` file:
 
   - `LABEL_STUDIO_URL`: URL of the Label Studio instance. E.g.:
     `http://label-studio:8080`.
+  - `LABEL_STUDIO_USERNAME`: Default username for Label Studio. Default:
+    `example@gmail.com`.
+  - `LABEL_STUDIO_PASSWORD`: Default password for Label Studio. Default:
+    `admin`.
+
+- **Label Studio ML backend:**
+
   - `LABEL_STUDIO_LEGACY_TOKEN`: Legacy token for Label Studio API. You can
     generate it in the Label Studio settings page.
 
@@ -84,6 +92,9 @@ E.g:
 ```
 # .env
 LABEL_STUDIO_URL=http://label-studio:8080
+LABEL_STUDIO_USERNAME=example@gmail.com
+LABEL_STUDIO_PASSWORD=admin
+
 LABEL_STUDIO_LEGACY_TOKEN=eyJhb***
 ```
 
@@ -131,9 +142,30 @@ Access Label Studio in your browser:
 http://localhost:8080
 ```
 
+> [!NOTE]
+> If you can't start label-studio service due to permission issues, you can run
+> the following command to change the permissions of the mounted directories:
+
+```bash
+make change-permissions
+```
+
 <!-- Usage -->
 
 ## :eyes: Usage
+
+### Base Label Studio Configuration
+
+Base label studio configuration that works with ML backend is stored at
+`label_studio_base.sqlite3`. You can copy and replace file
+`./studio-data/label_studio.sqlite3` to restore basic setup.
+
+Base configuration includes:
+
+- Connect to Machine Learning backend (defined in `docker-compose.yaml`).
+- Custom Labeling interface.
+- Project `v-bible` created.
+- Legacy token enabled.
 
 ### Entity Label Categories
 
@@ -206,6 +238,11 @@ Studio. You can customize the interface by using the `ner-config.xml`.
 
 ### Machine Learning Backend
 
+> [!IMPORTANT]
+> To connect to machine learning backend, remember to set the
+> `LABEL_STUDIO_LEGACY_TOKEN` and `LABEL_STUDIO_URL` (optional) environment
+> variable in your `.env` file.
+
 To connect to the Machine Learning backend, you can use your local IP address:
 
 ```bash
@@ -218,6 +255,16 @@ or `huggingface_ner` service name in the Docker Compose network:
 http://huggingface_ner:9090
 ```
 
+By default machine learning backend use model
+[`NlpHUST/ner-vietnamese-electra-base`](https://huggingface.co/NlpHUST/ner-vietnamese-electra-base)
+for better Vietnamese NER results. You can change this by modifying the
+`docker-compose.yaml` file.
+
+By default machine learning backend is stored at `huggingface_ner` folder, which
+is just copied from
+`label-studio-ml-backend/label_studio_ml/examples/huggingface_ner`, any
+changes from submodules `label-studio-ml-backend` may be updated periodically.
+
 ### Data Mounting
 
 Studio data is mounted to `studio-data` directory.
@@ -226,6 +273,30 @@ Machine Learning backend data is mounted to `ml-backend-data` directory.
 > [!NOTE]
 > As this is a non-root container, the mounted files and directories must have
 > the proper permissions for the `UID 1001`.
+
+To change permissions of the mounted directories, you can use the
+`Makefile` provided in the project root:
+
+```bash
+make change-permissions
+```
+
+### Makefile
+
+You can use the provided `Makefile` to manage the project easily.
+
+- Change permissions of mounted directories:
+
+```bash
+make change-permissions
+```
+
+- Reset base (copy `label_studio_base.sqlite3` to
+  `studio-data/label_studio.sqlite3`):
+
+```bash
+make reset-base
+```
 
 <!-- Contributing -->
 
