@@ -198,9 +198,11 @@ Tokens` > `Save`.
 
 ### Custom Labeling Interface
 
+#### NER Configuration
+
 For NER tasks, you can use the
 [template](https://labelstud.io/templates/named_entity) provided by Label
-Studio. You can customize the interface by using the `ner-config.xml`.
+Studio. You can customize the interface by using the [`configs/ner-config.xml`](./configs/ner-config.xml).
 
 ```xml
 <!-- ner-config.xml -->
@@ -233,6 +235,24 @@ Studio. You can customize the interface by using the `ner-config.xml`.
       <Header value="Genre: $genreCode" size="5"/>
     </View>
   </View>
+</View>
+```
+
+#### OCR Configuration
+
+For OCR tasks, you can use the
+[template](https://labelstud.io/templates/ocr) provided by Label Studio. You can customize the interface by using the [`configs/ocr-config.xml`](./configs/ocr-config.xml).
+
+```xml
+<View>
+	<Image name="image" value="$ocr" zoom="false" rotateControl="true"/>
+	<Labels name="label" toName="image">
+		<Label value="Text" background="green"/>
+		<Label value="Handwriting" background="blue"/>
+	</Labels>
+	<Rectangle name="bbox" toName="image" strokeWidth="3"/>
+	<Polygon name="poly" toName="image" strokeWidth="3"/>
+	<TextArea name="transcription" toName="image" editable="true" perRegion="true" required="true" maxSubmissions="1" rows="5" placeholder="Recognized Text" displayMode="region-list"/>
 </View>
 ```
 
