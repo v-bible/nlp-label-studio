@@ -241,18 +241,25 @@ Studio. You can customize the interface by using the [`configs/ner-config.xml`](
 #### OCR Configuration
 
 For OCR tasks, you can use the
-[template](https://labelstud.io/templates/ocr) provided by Label Studio. You can customize the interface by using the [`configs/ocr-config.xml`](./configs/ocr-config.xml).
+[template](https://labelstud.io/templates/ocr) provided by Label Studio. You can
+customize the interface by using the
+[`configs/ocr-config.xml`](./configs/ocr-config.xml).
+
+> [!NOTE]
+> I have disabled `required` field for `transcription` to allow skipping text
+> transcription when there is no text in the selected region. You can change it
+> back if needed. I also disabled `zoomControl` for better user experience.
 
 ```xml
 <View>
-	<Image name="image" value="$ocr" zoom="false" rotateControl="true"/>
+	<Image name="image" value="$ocr" zoom="false" rotateControl="true" zoomControl="false"/>
 	<Labels name="label" toName="image">
 		<Label value="Text" background="green"/>
 		<Label value="Handwriting" background="blue"/>
 	</Labels>
 	<Rectangle name="bbox" toName="image" strokeWidth="3"/>
 	<Polygon name="poly" toName="image" strokeWidth="3"/>
-	<TextArea name="transcription" toName="image" editable="true" perRegion="true" required="true" maxSubmissions="1" rows="5" placeholder="Recognized Text" displayMode="region-list"/>
+	<TextArea name="transcription" toName="image" editable="true" perRegion="true" required="false" maxSubmissions="1" rows="5" placeholder="Recognized Text" displayMode="region-list"/>
 </View>
 ```
 
