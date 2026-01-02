@@ -6,8 +6,14 @@ services:
     environment:
       - LABEL_STUDIO_USERNAME=${LABEL_STUDIO_USERNAME:-example@gmail.com}
       - LABEL_STUDIO_PASSWORD=${LABEL_STUDIO_PASSWORD:-admin}
+      # NOTE: Enable local files serving only for development purposes
+      - LABEL_STUDIO_LOCAL_FILES_SERVING_ENABLED=true
+      # NOTE: By default, local files are stored in /label-studio/files, so
+      # on the host machine you need to put your files in ./files
+      - LABEL_STUDIO_LOCAL_FILES_DOCUMENT_ROOT=/label-studio/files
     volumes:
       - ./studio-data:/label-studio/data
+      - ./files:/label-studio/files
     networks:
       - nlp-network
 
