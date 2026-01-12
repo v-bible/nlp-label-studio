@@ -270,6 +270,12 @@ customize the interface by using the
 > `LABEL_STUDIO_LEGACY_TOKEN` and `LABEL_STUDIO_URL` (optional) environment
 > variable in your `.env` file.
 
+Run the docker compose with profile `ml-backend` to enable machine learning backend:
+
+```bash
+docker-compose --profile ml-backend up -d
+```
+
 To connect to the Machine Learning backend, you can use your local IP address:
 
 ```bash
