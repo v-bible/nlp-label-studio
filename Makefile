@@ -1,6 +1,6 @@
 .PHONY: change-permission
 change-permissions:
-	sudo chmod 777 ./studio-data/label_studio.sqlite3
+	mkdir -p studio-data && sudo chmod -R 777 studio-data
 
 .PHONY: reset-base
 reset-base:

@@ -71,7 +71,7 @@ testem.log
 ml-backend-data/server
 ml-backend-data/.cache
 # Label Studio Studio Data
-studio-data/*
-!studio-data/*.sqlite3
+studio-data/
+files/
 # MinIO Data
 minio-data/
