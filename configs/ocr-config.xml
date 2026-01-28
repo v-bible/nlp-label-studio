@@ -1,5 +1,5 @@
 <View>
-	<Image name="image" value="$ocr" zoom="false" rotateControl="true" zoomControl="false"/>
+	<Image name="image" value="$ocr" zoom="true" rotateControl="true" zoomControl="true"/>
 	<Labels name="label" toName="image">
 		<Label value="Text" background="green"/>
 		<Label value="Handwriting" background="blue"/>
