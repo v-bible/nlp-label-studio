@@ -74,7 +74,6 @@ To run this project, you will need to add the following environment variables to
 your `.env` file:
 
 - **Label Studio configs:**
-
   - `LABEL_STUDIO_URL`: URL of the Label Studio instance. E.g.:
     `http://label-studio:8080`.
   - `LABEL_STUDIO_USERNAME`: Default username for Label Studio. Default:
@@ -83,7 +82,6 @@ your `.env` file:
     `admin`.
 
 - **Label Studio ML backend:**
-
   - `LABEL_STUDIO_LEGACY_TOKEN`: Legacy token for Label Studio API. You can
     generate it in the Label Studio settings page.
 
@@ -312,6 +310,49 @@ To change permissions of the mounted directories, you can use the
 
 ```bash
 make change-permissions
+```
+
+To **serve local data to Label Studio**, you can copy your data to `files`
+directory. This directory is mounted to Label Studio container, so you can
+access your data in Label Studio, following the official
+[documentation](https://labelstud.io/guide/storage_local).
+
+So in this project, you have this structure:
+
+```.
+├── files
+│   ├── my-data
+│   │   ├── image1.png
+│   │   ├── image2.png
+│   │   ├── text1.txt
+│   │   └── ...
+│   └── ...
+├── ml-backend-data
+│   └── ...
+├── studio-data
+│   └── ...
+├── ...
+```
+
+With setup `LABEL_STUDIO_LOCAL_FILES_SERVING=true` and
+`LABEL_STUDIO_LOCAL_FILES_SERVING_DIR=/label-studio/files` in
+`docker-compose.yaml`, you MUST specify the file path in Label Studio as:
+
+```json
+[
+  {
+    "data": {
+      "image": "/data/local-files/?d=my-data/image1.png",
+      "text": "/data/local-files/?d=my-data/text1.txt"
+    }
+  },
+  {
+    "data": {
+      "image": "/data/local-files/?d=my-data/image2.png",
+      "text": "/data/local-files/?d=my-data/text2.txt"
+    }
+  }
+]
 ```
 
 ### Makefile
